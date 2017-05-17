@@ -1,0 +1,81 @@
+Compilation Results:
+********************
+STARTING PASS 1
+0 errors found in first pass.
+STARTING PASS 2
+0 errors found in second pass.
+
+Test one
+********
+Testing: 4 7 + = 11
+Score: 10
+
+Test two
+********
+Testing: 5 3 - = 2
+Score: 10
+
+Test three
+**********
+Testing: 2 9 * = 18
+Score: 10
+
+Test four
+*********
+Testing: 4 3 - 2 3 + * = 5
+Score: 10
+
+Test five
+*********
+Testing: 4 3 * 2 7 * 5 - + = 21
+Score: 10
+
+Test six
+********
+Testing: + = Invalid Expression
+Score: 10
+
+Test seven
+**********
+Testing: 7 5 - + = Invalid Expression
+Score: 10
+
+Test eight
+**********
+Testing: 6 + 8 = Invalid Expression
+Score: 10
+
+Challenge one
+*************
+Testing: 21 13 * = 260
+Score: 0
+
+Challenge two
+*************
+Testing: 5 2 % = Error invalid input
+Score: 5
+
+Challenge three
+***************
+Testing: 2 5 * 4 + 1 2 * 9 + / = 1
+Score: 12
+
+Challenge four
+**************
+Testing: 2 5 ^ 4 + = 36
+Score: 8
+
+Grade
+*****
+Late submission: 0
+Functionality: 80
+Style: 5
+Comments: 5
+Formatting: 5
+Intro paragraph: 5
+Challenges: 25
+Total: 125
+
+Comments
+********
+Good work!

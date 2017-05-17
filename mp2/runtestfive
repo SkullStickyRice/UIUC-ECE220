@@ -1,0 +1,4 @@
+file mp2
+option stdin off
+continue
+4 3 * 2 7 * 5 - +

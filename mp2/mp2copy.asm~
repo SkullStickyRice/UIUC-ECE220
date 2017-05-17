@@ -1,0 +1,443 @@
+;Assuming user will only enter ' ' 0-9 *+/-
+;
+;
+;
+.ORIG x3000
+	LD R2, STR_ADDR		;store the decode string at x4000
+	AND R0, R0, #0			;
+	ADD R0, R0, #0			;
+	AND R4, R4, #0			;
+GET_NEXT_CHAR
+	GETC				;
+	OUT
+	ADD R3, R0, #0			;
+	NOT R3, R3			;
+	ADD R3, R3, #1
+	LD R1, NEW_LINE			;
+	ADD R5, R1, R3			;
+	BRz DONE			;if '/n' branch to done
+	LD R1, CHAR_RETURN		;
+	ADD R5, R1, R3			;
+	BRz DONE			;if '/r' branch to done
+	LD R1, SPACE		;
+	ADD R5, R1, R3			;
+	BRz GET_NEXT_CHAR
+	JSR DECODE			;
+	ADD R4, R0, #0
+        STR R4, R2, #0
+        ADD R2, R2, #1
+        AND R4,R4,#0			
+	BRnzp GET_NEXT_CHAR		;
+
+DONE
+	LD R4, NEW_LINE			;
+	NOT R4, R4
+	ADD R4, R4, #1		
+	STR R4, R2, #0
+	BRnzp EVALUATE
+	
+STR_ADDR	.FILL x5000		
+SPACE		.FILL x0020
+NEW_LINE	.FILL x000A
+CHAR_RETURN	.FILL x000D
+	
+;copy your code here
+	
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;find the real value of operand, or keep the 2's complement ascii value if operator
+;input - R0 holds the input
+;output - R0
+DECODE
+	ST R1, DECODE_R1		;callee-saved reg
+	ST R5, DECODE_R5		;callee-saved	reg
+	ST R7, DECODE_R7
+	LD R1, NINE
+	NOT R1, R1
+	ADD R1, R1, #1
+	ADD R5, R0, R1
+	BRp EXPO
+	LD R1, 	ZERO			;
+	NOT R1, R1			;
+	ADD R1, R1, #1			;
+	ADD R5, R0, R1			;
+	BRn OPERATOR			;	
+	ADD R0, R5, #0			; if number, move that number to R0
+	BRnzp DECODE_DONE
+OPERATOR
+	NOT R0, R0
+	ADD R0, R0, #1
+	LD R1, OP_ADD
+	ADD R5, R1, R0
+	BRz DECODE_DONE
+	LD R1, OP_MIN
+	ADD R5, R1, R0
+	BRz DECODE_DONE
+	LD R1, OP_MUL
+	ADD R5, R1, R0
+	BRz DECODE_DONE
+	LD R1, OP_DIV
+	ADD R5, R1, R0
+	BRz DECODE_DONE
+	BRnzp DE_ERR
+EXPO	
+	NOT R0,R0
+	ADD R0,R0,#1
+	LD R1, OP_EXP
+	ADD R5, R1, R0
+	BRz DECODE_DONE
+DE_ERR	LEA R0, ERR_MSG
+	PUTS
+	AND R0, R0, #0
+DECODE_DONE
+	LD R1, DECODE_R1		;
+	LD R5, DECODE_R5		;
+	LD R7, DECODE_R7
+	RET
+
+
+DECODE_R1	.BLKW #1	;
+DECODE_R5	.BLKW #1	;
+DECODE_R7	.BLKW #1
+OP_ADD		.FILL x002B
+OP_MIN		.FILL x002D
+OP_DIV		.FILL x002F
+OP_MUL		.FILL x002A
+OP_EXP		.FILL x005E
+ZERO		.FILL x0030
+NINE		.FILL x003A
+ERR_MSG		.STRINGZ "\nError invalid input"
+
+
+;copy your code here
+
+
+
+
+
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;R1 - start address of the expression string
+;R2 - value of R1
+;R6 - the numerical value of the end result
+;
+;
+EVALUATE
+	ST R7, EVALUATE_R7
+	LD R1,STRADDR
+EVA_START
+	LDR R0,R1,#0
+	LD R5,NEWLINE
+	ADD R5,R5,R0
+	BRz LAST_CHECK
+	LD R5,CHARRETURN
+	ADD R5,R5,R0
+	BRz LAST_CHECK	
+	ADD R0,R0,#0
+	BRn OPERATOR_CHECK
+	JSR PUSH
+	ADD R1,R1,#1
+	BRnzp EVA_START
+
+OPERATOR_CHECK
+	LD R3,OPADD		;	PLUS_CHECK
+	ADD R5,R3,R0
+	BRnp MIN_CHECK	
+
+	JSR POP
+	AND R6,R6,#0
+	ADD R6,R5,#-1
+	BRz INVALID
+	ADD R3,R0,#0
+	JSR POP
+	ADD R6,R5,#-1
+	BRz INVALID
+	ADD R4,R0,#0
+
+	JSR PLUS
+	JSR PUSH
+	ADD R1,R1,#1
+	BRnzp EVA_START	
+
+MIN_CHECK
+	LD R3,OPMIN
+	ADD R5,R3,R0
+	BRnp MUL_CHECK
+
+	JSR POP
+	AND R6,R6,#0
+	ADD R6,R5,#-1
+	BRz INVALID
+	ADD R3,R0,#0
+	JSR POP
+	ADD R6,R5,#-1
+	BRz INVALID
+	ADD R4,R0,#0
+
+	JSR MIN
+	JSR PUSH
+	ADD R1,R1,#1
+	BRnzp EVA_START
+
+
+MUL_CHECK
+	LD R3,OPMUL
+	ADD R5,R3,R0
+	BRnp DIV_CHECK
+
+	JSR POP
+	AND R6,R6,#0
+	ADD R6,R5,#-1
+	BRz INVALID
+	ADD R3,R0,#0
+	JSR POP
+	ADD R6,R5,#-1
+	BRz INVALID
+	ADD R4,R0,#0
+
+	JSR MUL
+	JSR PUSH
+	ADD R1,R1,#1
+	BRnzp EVA_START
+
+DIV_CHECK
+	LD R3,OPDIV
+	ADD R5,R3,R0
+	BRnp EXPO_CHECK
+
+	JSR POP
+	AND R6,R6,#0
+	ADD R6,R5,#-1
+	BRz INVALID
+	ADD R3,R0,#0
+	JSR POP
+	ADD R6,R5,#-1
+	BRz INVALID
+	ADD R4,R0,#0
+
+	JSR DIV
+	JSR PUSH
+	ADD R1,R1,#1
+	BRnzp EVA_START
+
+EXPO_CHECK
+	LD R3,OPEXP
+	ADD R5,R3,R0
+	BRnp INVALID
+
+	JSR POP
+	AND R6,R6,#0
+	ADD R6,R5,#-1
+	BRz ERROR_INPUT
+	ADD R4,R0,#0
+	JSR POP
+	ADD R6,R5,#-1
+	BRz INVALID
+	ADD R3,R0,#0
+
+	JSR EXP
+	JSR PUSH
+	ADD R1,R1,#1
+	BRnzp EVA_START
+
+
+LAST_CHECK	
+	JSR POP
+	ADD R5,R5,#-1
+	BRz INVALID
+	ADD R6,R0,#0
+	JSR POP
+	ADD R5,R5,#0
+	BRnz INVALID
+FINISH	
+	HALT
+
+INVALID
+	LEA R0,INVALID_EX
+	PUTS
+	BRnzp FINISH
+
+ERROR_INPUT
+	LEA R0, ERROR_EX
+	PUTS
+	BRnzp FINISH
+
+;your code goes here
+
+STRADDR	.FILL x5000
+NEWLINE	.FILL x000A
+CHARRETURN	.FILL x000D
+OPADD		.FILL x002B
+OPMIN		.FILL x002D
+OPDIV		.FILL x002F
+OPMUL		.FILL x002A
+OPEXP		.FILL x005E
+INVALID_EX	.STRINGZ "\nInvalid Expression"
+ERROR_EX	.STRINGZ "\nError invalid input"	
+ZERO_ASCII	.FILL x0030
+NINE_ASCII	.FILL x003A
+EVALUATE_R7	.BLKW #1
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;input R3, R4
+;out R0
+PLUS	
+	ADD R0,R3,R4
+	RET
+
+;your code goes here
+	
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;input R3, R4
+;out R0
+MIN		
+	ST R3, MIN_SAVE_R3
+	NOT R3,R3
+	ADD R3,R3,#1
+	ADD R0,R4,R3
+	LD R3, MIN_SAVE_R3
+	RET
+
+MIN_SAVE_R3	.BLKW #1
+
+;your code goes here
+	
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;input R3, R4
+;out R0
+MUL	
+	ST R3, MUL_SAVE_R3
+	AND R0,R0,#0
+LOOPADD	
+	ADD R0,R0,R4
+	ADD R3,R3,#-1
+	BRp LOOPADD
+	LD R3, MUL_SAVE_R3
+	RET
+
+MUL_SAVE_R3	.BLKW 1
+;your code goes here
+	
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;input R3, R4
+;out R0
+DIV
+	ST R3, DIV_SAVE_R3
+	AND R0,R0,#0
+	NOT R3,R3
+	ADD R3,R3,#1
+LOOPMIN
+	ADD R4,R4,R3
+	BRn DIV_BACK
+	ADD R0,R0,#1
+	BRnzp LOOPMIN
+	
+DIV_BACK	
+	LD R3,DIV_SAVE_R3
+	RET
+DIV_SAVE_R3	.BLKW #1
+;your code goes here
+	
+	
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;input R3, R4
+;out R0
+EXP
+	ST R3, EXP_SAVE_R3
+	ST R4, EXP_SAVE_R4
+	AND R0,R0,#0
+	ADD R6,R3,#0
+	ADD R4,R4,#-1
+	ADD R6,R6,#-1
+	ADD R0,R3,#0
+LOOPEXP
+	ADD R4,R4,#0
+	BRz EXP_BACK
+	ADD R5,R6,#0
+LOOPMUL
+	ADD R5,R5,#0
+	BRz DECREMENT
+	ADD R0,R0,R3
+	ADD R5,R5,#-1
+	BRnzp LOOPMUL
+DECREMENT
+	ADD R4,R4,#-1
+	ADD R3,R0,#0
+	BRnzp LOOPEXP
+EXP_BACK
+	LD R3,EXP_SAVE_R3
+	LD R4,EXP_SAVE_R4
+	RET
+
+
+;your code goes here
+
+EXP_SAVE_R3	.BLKW #1
+EXP_SAVE_R4	.BLKW #1
+;IN:R0, OUT:R5 (0-success, 1-fail/overflow)
+;R3: STACK_END R4: STACK_TOP
+;
+PUSH	
+	ST R3, PUSH_SaveR3	;save R3
+	ST R4, PUSH_SaveR4	;save R4
+	AND R5, R5, #0		;
+	LD R3, STACK_END	;
+	LD R4, STACk_TOP	;
+	ADD R3, R3, #-1		;
+	NOT R3, R3		;
+	ADD R3, R3, #1		;
+	ADD R3, R3, R4		;
+	BRz OVERFLOW		;stack is full
+	STR R0, R4, #0		;no overflow, store value in the stack
+	ADD R4, R4, #-1		;move top of the stack
+	ST R4, STACK_TOP	;store top of stack pointer
+	BRnzp DONE_PUSH		;
+OVERFLOW
+	ADD R5, R5, #1		;
+DONE_PUSH
+	LD R3, PUSH_SaveR3	;
+	LD R4, PUSH_SaveR4	;
+	RET
+
+
+PUSH_SaveR3	.BLKW #1	;
+PUSH_SaveR4	.BLKW #1	;
+
+
+;OUT: R0, OUT R5 (0-success, 1-fail/underflow)
+;R3 STACK_START R4 STACK_TOP
+;
+POP	
+	ST R3, POP_SaveR3	;save R3
+	ST R4, POP_SaveR4	;save R3
+	AND R5, R5, #0		;clear R5
+	LD R3, STACK_START	;
+	LD R4, STACK_TOP	;
+	NOT R3, R3		;
+	ADD R3, R3, #1		;
+	ADD R3, R3, R4		;2
+	BRz UNDERFLOW		;
+	ADD R4, R4, #1		;
+	LDR R0, R4, #0		;
+	ST R4, STACK_TOP	;
+	BRnzp DONE_POP		;
+UNDERFLOW
+	ADD R5, R5, #1		;
+DONE_POP
+	LD R3, POP_SaveR3	;
+	LD R4, POP_SaveR4	;
+	RET
+
+
+POP_SaveR3	.BLKW #1	;
+POP_SaveR4	.BLKW #1	;
+STACK_END	.FILL x3FF0	;
+STACK_START	.FILL x4000	;
+STACK_TOP	.FILL x4000	;
+
+
+.END
