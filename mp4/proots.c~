@@ -1,0 +1,148 @@
+/*
+    Name: Xuanying Li
+    NetID: xli146
+    Lab Section: AB1
+*/
+
+/*
+Intro: in this MP, we are trying to find the roots in a ploynomial by using BUdan's Theorem to determine if there is any roots in the interval, and use Newton's method to find the roots. 
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+/* function prototypes, do not modify them */
+double fx_val(double a, double b, double c, double d, double e, double x);
+double fx_dval(double a, double b, double c, double d, double e, double x);
+double newrfind(double a, double b, double c, double d, double e, double x);
+int rootbound(double a, double b, double c, double d, double e, double r, double l);
+
+
+int main(int argc, char **argv)
+{
+    double a, b, c, d, e, l, r,root,gap,x,root_num;
+    int time;
+    FILE *in;
+
+    if (argv[1] == NULL) 
+    {
+        printf("You need an input file.\n");
+        return EXIT_FAILURE;
+    }
+
+    in = fopen(argv[1], "r");
+    if (in == NULL) return EXIT_FAILURE;
+
+    fscanf(in, "%lf", &a);
+    fscanf(in, "%lf", &b);
+    fscanf(in, "%lf", &c);
+    fscanf(in, "%lf", &d);
+    fscanf(in, "%lf", &e);
+    fscanf(in, "%lf", &l);
+    fscanf(in, "%lf", &r);
+
+    root=rootbound(a,b,c,d,e,r,l);
+
+    if (root==0) /*no roots in the interval, if the upper bound is 0*/
+    {
+	printf("The polynomial has no roots in the given interval.\n");
+	return 0;
+    }
+    for(gap=l;gap<=r;gap=gap+0.5)/*use all the values from l to r with a gap of 0.5 as starting points*/
+    {
+	x=gap;
+        root_num=fx_dval(a,b,c,d,e,gap);
+        
+        if(root_num==0)/*if there is no roots for the polynomial for given starting point, print it*/
+        {
+	      printf("No roots found\n");
+	}
+
+        else
+        {
+	        for(time=0;time<=10000;time++)/*don't do the iteration more than 10000 times*/
+                {
+			x=newrfind(a,b,c,d,e,x);	
+		}
+        printf("Root found: %lf\n",x);
+	}
+    }
+    fclose(in);
+    /* The values are read into the variable a, b, c, d, e, l and r.
+    You have to find the bound on the number of roots using rootbound function.
+    If it is > 0 try to find the roots using newrfind function.
+    You may use the fval and dval funtions accordingly in implementing the newton's method. */
+
+
+    return 0;
+
+}
+
+
+double fx_val(double a, double b, double c, double d, double e, double x)
+{
+    /* Change this to return the value of the polynomial at the value x */
+    double fx;
+    fx=a*pow(x,4)+b*pow(x,3)+c*pow(x,2)+d*x+e;/*the polynomial formula of this MP*/
+    return fx;
+}
+
+double fx_dval(double a, double b, double c, double d, double e, double x)
+{
+    /* Change this to return the value of the derivative of the polynomial at the value x */
+    double fx_d;
+    fx_d=4*a*pow(x,3)+3*b*pow(x,2)+2*c*x+d;/*derivative of the polynomial*/
+    return fx_d;
+}
+double newrfind(double a, double b, double c, double d, double e, double x)
+{
+    /* Change this to return the root found starting from the initial point x */
+    double fx,fx_d,new_find;
+    fx=fx_val(a,b,c,d,e,x);
+    fx_d=fx_dval(a,b,c,d,e,x);
+    new_find=x-(fx/fx_d);/*formula from step twp to find the better value*/
+    return new_find;
+}
+
+int rootbound(double a, double b, double c, double d, double e, double r, double l)
+{
+    /* Change this to return the upper bound on the number of roots of thefile:///usr/share/doc/HTML/en-US/index.htmls polynomial
+       in the interval (l, r) */
+
+    int left=0,right=0;
+    int bound;
+
+	/*use step 1 to find the number of sign variations in p(x+l)*/
+
+    if (a*(4*a*l+b) < 0) /* first pair, if the result of the multiplication is negitive, increment the number of the sign variations */ 
+	left=left+1;
+
+    if ((4*a*l+b)*(6*a*pow(l,2)+3*b*l+c)<0) /* second pair, if the result of the multiplication is negitive, increment the number of the sign variations */ 
+	left=left+1;
+
+    if ((6*a*pow(l,2)+3*b*l+c)*(4*a*pow(l,3)+3*b*pow(l,2)+2*c*l+d)<0) /* third pair, if the result of the multiplication is negitive, increment the number of the sign variations */ 	
+	left=left+1;
+
+    if ((4*a*pow(l,3)+3*b*pow(l,2)+2*c*l+d)*(a*pow(l,4)+b*pow(l,3)+c*pow(l,2)+d*l+e)<0) /* forth pair, if the result of the multiplication is negitive, increment the number of the sign variations */ 
+	left=left+1;
+
+
+        /*use step 1 to find the number of sign variations in p(x+r)*/
+
+    if (a*(4*a*r+b) < 0) /* first pair, if the result of the multiplication is negitive, increment the number of the sign variations */ 
+	right=right+1;
+
+    if ((4*a*r+b)*(6*a*pow(r,2)+3*b*r+c)<0) /* second pair, if the result of the multiplication is negitive, increment the number of the sign variations */ 
+	right=right+1;
+
+    if ((6*a*pow(r,2)+3*b*r+c)*(4*a*pow(r,3)+3*b*pow(r,2)+2*c*r+d)<0) /* third pair, if the result of the multiplication is negitive, increment the number of the sign variations */ 
+	right=right+1;
+
+    if ((4*a*pow(r,3)+3*b*pow(r,2)+2*c*r+d)*(a*pow(r,4)+b*pow(r,3)+c*pow(r,2)+d*r+e)<0) /* forth pair, if the result of the multiplication is negitive, increment the number of the sign variations */ 
+	right=right+1;
+
+    bound=abs(left-right); /* the upper bound on the number of roots in the interval (l,r) */
+
+    return bound;
+}

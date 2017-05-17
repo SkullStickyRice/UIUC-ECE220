@@ -1,0 +1,38 @@
+Compilation Results:
+*******************
+
+Test one
+********
+Points: lost: 0
+
+Test two
+********
+Points: lost: 0
+
+Test three
+********
+Points: lost: 0
+
+Test four
+********
+Points: lost: 0
+
+Test five
+********
+Points: lost: 0
+
+Grade
+*****
+Late submission: 0
+Functionality: 80
+Style: 5
+Comments: 5
+Formatting: 5
+Intro Paragraph: 100
+Total: 95
+
+Comments
+********
+I took off 5 points because you were missing a '*/' to end the intro paragraph
+comment and it was preventing your code from compiling.
+
