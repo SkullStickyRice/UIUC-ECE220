@@ -1,0 +1,18 @@
+// Symbol table
+// Scope level 0:
+//	Symbol Name       Page Address
+//	----------------  ------------
+//	START             3001
+//	DONE              300F
+//	STR_ADDR          3011
+//	SPACE             3012
+//	NEW_LINE          3013
+//	NEG_NL            3014
+//	CHAR_RETURN       3015
+//	NEG_CR            3016
+//	DECODE            3017
+//	NUMBER            3021
+//	ZERO              3023
+//	NEG_ZERO          3024
+//	NEG_SPACE         3025
+

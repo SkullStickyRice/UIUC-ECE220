@@ -1,0 +1,1 @@
+2/3 because stores ascii values instead of numerical values
