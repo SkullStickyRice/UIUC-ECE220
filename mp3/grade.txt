@@ -1,0 +1,47 @@
+Compilation Results:
+********************
+
+Test one
+********
+Error: 0.000000
+Points lost: 0
+
+Test two
+********
+Error: 0.000000
+Points lost: 0
+
+Test three
+********
+Error: 0.000000
+Points lost: 0
+
+Test four
+********
+Error: 0.000000
+Points lost: 0
+
+Challenge one
+*************
+Error: 0.000000
+Points lost: 0
+
+Challenge two
+*************
+Error: 0.000000
+Points lost: 0
+
+Grade
+*****
+Late submission: 0
+Functionality: 80
+Style: 5
+Comments: 5
+Formatting: 5
+Intro Paragraph: 0
+Challenges: 20
+Total: 115
+
+Comments
+********
+No intro paragraph.
