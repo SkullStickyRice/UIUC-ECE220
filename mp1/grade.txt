@@ -1,0 +1,40 @@
+Compilation Results:
+********************
+STARTING PASS 1
+0 errors found in first pass.
+STARTING PASS 2
+0 errors found in second pass.
+
+Testoneout diff:
+****************
+Matches: 27/27
+
+Testtwoout diff:
+****************
+Matches: 27/27
+
+Testthreeout diff:
+****************
+Matches: 27/27
+
+Testfourout diff:
+****************
+Matches: 27/27
+
+Testfiveout diff:
+****************
+Matches: 27/27
+
+Grade:
+******
+Late submission: 0
+Functionality: 80
+Style: 5
+Comments: 5
+Formatting: 5
+Intro paragraph: 0
+Total: 95
+
+Comments:
+*********
+No intro paragraph.
