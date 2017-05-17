@@ -1,0 +1,40 @@
+Answer the following questions:
+
+
+1. What is output from ccons? What is the initial value in the pointer? Will this always be the case? Hint think about what is stored in a variable that is not initialized.
+
+ANS: the output is 0. the initial value in the pointer is 0. this will always be the case since we only have the type of the pointer at this point. 
+
+2. What does the * operator do at this point in the code? What happened? Why?
+
+reads the value of ipoint. 
+
+3. What is the output when running the following commands?
+
+5.
+
+4. What happens when running the above code? Why? How did you fix the code?
+
+the results has a segmentation fault. change the  first part of i < 100 to i < 5.  
+
+5. What is ipoint incremented by each time the statement ipoint = ipoint + 1 is run when the array is of type double. Why? Notice that the output from the array starts with zero. Why?
+
+64 bits, 8 bytes. because the type of the array and pointer changed to double, which is 8 bytes. the output from the array starts with zero because *ipoint = i, and the program initializes i = 0.  
+
+6. How does passing the arrays to a function using pointers affect the data as the array is being passed to the function? Hint: what happens if the array is changed in the function?
+
+using pointer can change the initial vaule of array instead copy them from the array and then change the vaules.  
+
+7. Why is there a problem with the previous code snippet? Which line gives the error? Why?
+
+int *pi should change to double **pi, because it's the address of value a's address, and since the type of pointer *pd is double, so the type of **pi should be pointer too.  
+
+8. Why is there a problem with that assignment? Why does the last assignment fail?
+
+because the pointer and array has different size. 
+
+
+9. What does code.c do?  How difficult would it be to do something similar in LC-3 assembly?
+
+
+
