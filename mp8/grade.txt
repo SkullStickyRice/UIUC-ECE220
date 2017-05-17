@@ -1,0 +1,30 @@
+g++ -Wall -O3 -c tLib_graphics.cpp -o tLib_graphics.o `pkg-config --libs --cflags cairo`
+g++ -Wall -O3 -c floorplan.c -o floorplan.o  `pkg-config --libs --cflags cairo`
+g++ -Wall -O3 -c main.c -o main.o `pkg-config --libs --cflags cairo`
+g++ -Wall -O3 tLib_graphics.o floorplan.o main.o `pkg-config --libs --cflags cairo` -L./lib -ltest -o floorplanner 
+
+Functions
+*********
+init_slicing_tree: 25
+is_leaf: 5
+is_internal: 5
+is_in_subtree: 10
+rotate: 5
+recut: 5
+swap_module: 5
+swap_topology: 10
+get_expression: 20
+
+Grade
+*****
+Late submission: 0
+Functionality: 90
+Style: 5
+Comments: 5
+Challenges: 0
+Worked alone: 0
+Total: 100
+
+Comments
+********
+Good work!
