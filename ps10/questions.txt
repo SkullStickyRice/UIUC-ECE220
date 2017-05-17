@@ -1,0 +1,37 @@
+
+1. Provide C code to declare a variable "s" which is an array of 4 structures with members "int" and "double".
+struct {
+int a; 
+double b;}s[4];
+
+2. Declare the same variable "s" (an array of 4 structures with members "int" and "double"), this time using a custom type to identify the structure.
+typedef struct{
+	int a;
+	double b;
+}s[4];
+
+
+3. What does the type of "a" change to when it's used in expression 1?
+a is the array of 5 pointers to type char.
+
+4. What is the result of all four expressions? Why?
+the results are 4,4,4,4.
+we have two different ways to access the array elements such as pointer method and index method. expression1 and 2 use different way to access the fourth element in the array. expression3 and 4 use a pointer to the array so we can modify the value of the array by expression 3 and 4. But the expression of them are the same as expression1 and 2.
+
+5. You have a variable with type "int" that you want to pass to a function, but the parameter has type "int *". How do you pass it? What if the parameter has type "int **"?
+we can use & pass the function if the type is int*. When the type has int**, we can use a pointer to pointer to pass the function. For example, we can create a new variable b, b=&a, and use &b pass the function.
+
+6. Suppose you have a variable called "vector_array" which is an array of this "vector" type. Write a C expression to access the y component of element 4 of the array (element 0 is the first).
+vector_array->3
+
+7. If we have a variable "cur_ball" which is a pointer to a "ball", how would we access the x velocity of the ball? What if we had an array of "ball" called "balls" and wanted to access the y position of ball 0?
+cur_ball.velocity.x;
+ball[0].position.y;
+
+8. Explain why "&array[3]" and "array + 3" are equivalent.
+array is an array and it can also represent the first address of an array. array+3 indicates the address of the fourth array element. array[3] indicates the fourth value in the array, then &array[3] is the address of the fourth value. So they are equivalent.
+
+9. Explain why this trick works.
+the size of long(array[8]) is 64 because the size of type long is 8. Then the size of array[0] is 8. sizeof(array)
+is the size of the whole array equals to 64, then sizeof(array)/sizeof(array[0]) is 8.
+
