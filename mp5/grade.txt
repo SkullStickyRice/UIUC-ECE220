@@ -1,0 +1,42 @@
+Compilation Results
+*******************
+g++ -g -Wall  -c main.c
+g++ -g -Wall  -c lodepng.c
+g++ -g -Wall  -c imageData.c
+g++ -g -Wall  -c functions.c
+g++ -g -Wall  main.o lodepng.o imageData.o functions.o -o mp5
+g++ -g -Wall  test.o lodepng.o imageData.o functions.o solution.o -o test
+
+Testing
+*******
+getRadius: 5
+calculategFilter: 10
+convolveImage: 35
+nearestPixel: 10
+transformImage: 20
+
+Challenges
+**********
+invertImage: 5
+colorDodge: 0
+convertToGray: 0
+pencilSketch: 0
+pixelate: 0
+
+Grade
+*****
+Late submission: 1
+Functionality: 80
+Style: 5
+Comments: 0
+Formatting: 2
+Intro paragraph: 0
+Challenges: 5
+Alone: 5
+Total: 91
+
+Comments
+********
+Lost 1 point due to late submission. No comments or intro paragraph.
+Formatting isn't well done for conditionals/functions.
+
