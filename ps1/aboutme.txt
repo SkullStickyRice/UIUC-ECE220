@@ -1,0 +1,3 @@
+Write about yourself!
+
+My name is Xuanying Li, and I just transfered last spring. I have taken ECE110,210,120,329, and 313 so far. I'm trying to study java and python on my own and want to learn C in this course. My father is an engineer, I guess he's the one made me interested in ECE major since he always talk about programming. 
