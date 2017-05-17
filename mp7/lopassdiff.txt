@@ -1,0 +1,12 @@
+2c2
+< ChunkSize:60454
+---
+> ChunkSize: 22735910
+9c9
+< bytesPerSec:45328
+---
+> bytesPerSec: 176400
+13c13
+< Subchunk2Size:60416
+---
+> Subchunk2Size: 22735872

@@ -1,0 +1,29 @@
+File 1:
+RIFF:RIFF
+ChunkSize:30070
+WAVE:WAVE
+fmt:fmt 
+Subchunk1Size:18
+AudioFormat:1
+NumChan:2
+SamplesPerSec:44100
+bytesPerSec:45328
+blockAlign:4
+bitsPerSample:16
+Subchunk2ID:data
+Subchunk2Size:30032
+File 2:
+RIFF:RIFF
+ChunkSize:60454
+WAVE:WAVE
+fmt:fmt 
+Subchunk1Size:18
+AudioFormat:1
+NumChan:2
+SamplesPerSec:44100
+bytesPerSec:45328
+blockAlign:4
+bitsPerSample:16
+Subchunk2ID:data
+Subchunk2Size:60416
+File 1 was not found in File 2.

@@ -1,0 +1,15 @@
+3231
+34333231
+RIFF: RIFF
+ChunkSize: 22735910
+WAVE: WAVE
+fmt: fmt 
+Subchunk1Size: 18
+AudioFormat: 1
+NumChan: 2
+SamplesPerSec: 44100
+bytesPerSec: 176400
+blockAlign: 4
+bitsPerSample: 16
+Subchunk2ID: data
+Subchunk2Size: 22735872

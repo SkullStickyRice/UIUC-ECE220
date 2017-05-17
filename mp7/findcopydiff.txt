@@ -1,0 +1,26 @@
+3c3
+< ChunkSize:30070
+---
+> ChunkSize: 882038
+10c10
+< bytesPerSec:45328
+---
+> bytesPerSec: 176400
+14c14
+< Subchunk2Size:30032
+---
+> Subchunk2Size: 882000
+17c17
+< ChunkSize:60454
+---
+> ChunkSize: 22735910
+24c24
+< bytesPerSec:45328
+---
+> bytesPerSec: 176400
+28,29c28,29
+< Subchunk2Size:60416
+< File 1 was not found in File 2.
+---
+> Subchunk2Size: 22735872
+> File 1 was found in File 2.

@@ -1,0 +1,29 @@
+Compilation Results
+*******************
+
+Testing sloop
+*************
+Sloop output is different
+
+Testing find_copy
+*****************
+Find_copy output is different
+
+Challenge
+*********
+Lo_pass output is different
+
+Grade
+*****
+Late submission: 1
+Functionality: 37
+Style: 5
+Comments: 5
+Formatting: 5
+Intro Paragraph: 0
+Challenges: 0
+Worked alone: 5
+Total: 56
+
+Comments
+********
