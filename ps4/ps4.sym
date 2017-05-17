@@ -1,0 +1,33 @@
+// Symbol table
+// Scope level 0:
+//	Symbol Name       Page Address
+//	----------------  ------------
+//	PUSH_START        3007
+//	POP_START         3015
+//	PUSH_COUNT        3022
+//	O_U_FLOW_MSG      3024
+//	PRINT_PALIN       3027
+//	PRINT_NOT_PALIN   302A
+//	DONE              302C
+//	TOTAL_N           302D
+//	HALF_H            302E
+//	STR_ADDR          302F
+//	NEG_LEFT          3030
+//	NEG_RIGHT         3031
+//	IS_PAN_MSG        3032
+//	NOT_PAN_MSG       304E
+//	ERROR_MSG         306F
+//	PUSH              3098
+//	OVERFLOW          30A6
+//	DONE_PUSH         30A7
+//	PUSH_SaveR3       30AA
+//	PUSH_SaveR4       30AB
+//	POP               30AC
+//	UNDERFLOW         30B9
+//	DONE_POP          30BA
+//	POP_SaveR3        30BD
+//	POP_SaveR4        30BE
+//	STACK_END         30BF
+//	STACK_START       30C0
+//	STACK_TOP         30C1
+
