@@ -1,0 +1,50 @@
+Compilation Results
+*******************
+gcc -g -Wall -Wextra -c main.c
+gcc -g -Wall -Wextra -c maze.c
+maze.c: In function ‘checkMaze’:
+maze.c:133: warning: unused parameter ‘x’
+maze.c:133: warning: unused parameter ‘y’
+maze.c: In function ‘solveMazeBFS’:
+maze.c:181: warning: unused parameter ‘maze’
+maze.c:181: warning: unused parameter ‘width’
+maze.c:181: warning: unused parameter ‘height’
+maze.c:181: warning: unused parameter ‘xPos’
+maze.c:181: warning: unused parameter ‘yPos’
+gcc -g -Wall -Wextra main.o maze.o -o mp6
+
+Testing findStart
+*****************
+Score: 5
+
+Testing printMaze
+*****************
+Score: 5
+
+Testing solvMaze
+****************
+Score: 50
+
+Testing checkMaze
+*****************
+Score: 20
+
+Challenge
+*********
+Score: 0
+
+Grade
+*****
+Late submission: 2
+Functionality: 80
+Style: 5
+Comments: 5
+Formatting: 5
+Intro paragraph: 5
+Challenges: 0
+Worked alone: 5
+Total: 103
+
+Comments
+********
+-2 late submission.
